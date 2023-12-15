@@ -1,0 +1,28 @@
+<style>
+    .description-text {
+       max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        font-family: 'Arial', sans-serif;
+        font-size: 20px;
+        line-height: 2;
+        color: #333;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="text-center mb-4">Thông tin về chó {{Dog.name}}</h2>
+            <div class="card">
+                <img src="{{Dog.image}}" class="card-img-top" alt="{{Dog.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{Dog.name}}</h5>
+                    <pre class="card-text description-text">{{Dog.description}}</pre>
+                    <a href="/dogs" class="btn btn-primary">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

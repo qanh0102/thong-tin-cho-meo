@@ -1,0 +1,45 @@
+<style>
+    .equal-height-cards {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .equal-height-card {
+        flex: 0 0 35%;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card-body {
+        flex-grow: 1;
+    }
+
+    .card-buttons {
+        padding: 10px;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="mt-4 equal-height-cards">
+    {{#each Dogs}}
+        <div class="col-sm-6 col-lg-4 equal-height-card">
+            <div class="card">
+                <a href="/dog/{{this.slug}}">
+                    <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}" width="340" height="260">
+                </a>
+                <div class="card-body">
+                    <a href="/dog/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.note}}</p>
+                </div>
+                <div class="card-buttons">
+                    <a href="/dog/{{this.slug}}" class="btn btn-primary">Xem</a>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

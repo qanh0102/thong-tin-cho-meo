@@ -1,0 +1,83 @@
+<div class="mt-4">
+    <h3>Thông tin mèo đã thêm</h3>
+
+    <table class="table mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên mèo</th>
+                <th scope="col">Thời gian thêm</th>
+                <th scope="col">Tác vụ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each Cats}}
+            <tr>
+                <!-- Hiển thị số thứ tự bắt đầu từ 1 -->
+                <th scope="row">{{sum @index 1}}</th>
+                <!-- Hiển thị tên mèo -->
+                <td>{{this.name}}</td>
+                <!-- Hiển thị thời gian thêm mèo -->
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <!-- Nút 'Sửa' chuyển đến trang sửa thông tin mèo -->
+                    <a href="/cat/{{this._id}}/edit" class="btn btn-dark">Sửa</a>
+                    <!-- Nút 'Xóa' mở modal xác nhận xóa -->
+                    <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#deleteCat" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<!-- Form xóa ẩn -->
+<form name="delete-cat-form" method="post"></form>
+
+<!-- Modal xác nhận xóa -->
+<div id="deleteCat" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Tiêu đề của modal -->
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <!-- Nút đóng modal -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung xác nhận xóa -->
+                <p>Bạn có chắc chắn muốn xóa vĩnh viễn dữ liệu này không?</p>
+            </div>
+            <div class="modal-footer">
+                <!-- Nút hủy đóng modal -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <!-- Nút xác nhận xóa -->
+                <button id="btn-deleteCat" type="button" class="btn btn-danger" data-id="{{this._id}}">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var catId;
+    var deleteForm = document.forms['delete-cat-form']
+    var btnDeleteCat = document.getElementById('btn-deleteCat')
+
+    // Sự kiện hiển thị modal xác nhận xóa
+    $('#deleteCat').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        catId = button.data('id');
+    });
+
+    // Xử lý khi người dùng xác nhận xóa
+    btnDeleteCat.onclick = function () {
+        // Đặt action của form để xóa mèo với id tương ứng
+        deleteForm.action = '/cat/' + catId + '?_method=delete';
+        // Gửi yêu cầu xóa khi người dùng xác nhận
+        deleteForm.submit();
+    }
+});
+</script>
